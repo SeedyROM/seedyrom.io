@@ -51,4 +51,4 @@ $locationLink.on("click", function() {
     location.href = currentLocation;
 });
 
-$("a[@href^='http']").attr('target','_blank');
+$("a").attr('target','_blank');
