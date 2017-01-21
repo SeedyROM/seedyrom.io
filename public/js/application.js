@@ -45,10 +45,12 @@ $progressBar.velocity({
         });
     },
 });
+
 $locationLink.on("click", function() {
 	var currentLocation = "https://www.google.com/search?q="+ escape($.trim($(this).text()));
     location.href = currentLocation;
 });
+
 $(document).ready(function(){
  $("a[@href^='http']").attr('target','_blank');
-}); 
+});
