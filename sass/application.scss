@@ -328,7 +328,10 @@ html, body {
     ul {
         display: block;
     }
-
+    & ul > li a {
+      color: #000;
+      text-decoration: none;
+    }
     & ul > li {
         font-size: 2em;
         margin-bottom: 1em;
