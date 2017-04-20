@@ -1,0 +1,652 @@
+// bower:scss
+// endbower
+@import url("http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css");
+/* Simple CSS reset. */
+@import url("//fonts.googleapis.com/css?family=Lato|Open+Sans|Abril+Fatface|Archivo+Black|Raleway|Space+Mono|Unica+One");
+*, body, button, input, textarea, select {
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale; }
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+fieldset, img {
+  border: 0; }
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style: normal;
+  font-weight: normal; }
+
+ol, ul {
+  list-style: none; }
+
+caption, th {
+  text-align: left; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal; }
+
+q:before, q:after {
+  content: ''; }
+
+abbr, acronym {
+  border: 0; }
+
+/* Font imports... */
+$fontName       : 'Kelson', sans-serif !default;
+$baseFontSize   : 22;
+$baseLineHeight : 2.5;
+$leading        : $baseLineHeight * 0.5rem;
+$scale          : 1.414;
+
+/* Font imports... */
+
+/*! Typebase.scss v0.1.0 | MIT License */
+
+// Typesetting variables. Edit these!
+
+// in pixels. This would result in 22px on desktop
+
+// how large the line height is as a multiple of font size
+
+// Rate of growth for headings
+
+// I actually like this to be slightly smaller then the leading. Makes for tight headings.
+
+/* Setup */
+
+html {
+  /* Change default typefaces here */
+  -moz-text-size-adjust    : auto;
+  -ms-text-size-adjust     : auto;
+  -o-text-size-adjust      : auto;
+  -webkit-text-size-adjust : auto;
+  text-size-adjust         : auto;
+  font-family              : $fontName,
+                             serif;
+  font-size                : $baseFontSize / 16 * 100%;
+  -webkit-font-smoothing   : antialiased;
+  // Make everything look a little nicer in webkit
+}
+
+/* Copy & Lists */
+
+p {
+  margin-top    : $leading;
+  margin-bottom : 0;
+  line-height   : $leading;
+}
+
+ol,
+ul {
+  margin-top    : $leading;
+  margin-bottom : $leading;
+
+  li {
+    line-height : $leading;
+  }
+
+  ol,
+  ul {
+    margin-top    : 0;
+    margin-bottom : 0;
+  }
+}
+
+blockquote {
+  margin-top    : $leading;
+  margin-bottom : $leading;
+  line-height   : $leading;
+}
+
+/* Headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* Change heading typefaces here */
+  margin-top    : $leading;
+  margin-bottom : 0;
+  font-family   : $fontName,
+                  sans-serif;
+  font-weight   : bold;
+  line-height   : $leading;
+}
+
+h1 {
+  margin-top  : 2 * $leading;
+  font-size   : 3 * $scale * 1rem;
+  line-height : 3 * $leading;
+}
+
+h2 {
+  margin-top  : 2 * $leading;
+  font-size   : 2 * $scale * 1rem;
+  line-height : 2 * $leading;
+}
+
+h3 {
+  font-size : 1 * $scale * 1rem;
+}
+
+h4 {
+  font-size : $scale / 2 * 1rem;
+}
+
+h5 {
+  font-size : $scale / 3 * 1rem;
+}
+
+h6 {
+  font-size : $scale / 4 * 1rem;
+}
+
+/* Tables */
+
+table {
+  margin-top      : $leading;
+  border-collapse : collapse;
+  border-spacing  : 0px;
+}
+
+td,
+th {
+  padding     : 0;
+  line-height : $baseLineHeight * $baseFontSize - 0px;
+}
+
+/* Code blocks */
+
+code {
+  // Forces text to constrain to the line-height. Not ideal, but works.
+  vertical-align : bottom;
+}
+
+/* Leading paragraph text */
+
+.lead {
+  font-size : $scale * 1rem;
+}
+
+/* Hug a the block above you */
+
+.hug {
+  margin-top : 0;
+}
+
+/* Utility classes. */
+
+.vertical-center {
+  top       : 50%;
+  transform: translateY(-50%);
+}
+
+.horizontal-center {
+  left      : 50%;
+  transform: translateY(-50%);
+}
+
+.no-select {
+  -ms-user-select     : none;
+  -webkit-user-select : none;
+  user-select         : none;
+}
+
+.true-center {
+  position  : relative;
+  top       : 50%;
+  left      : 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+
+$mobile-width: 426px;
+$tablet-width: 769px;
+$desktop-width: 1025px;
+
+@mixin small_mobile {
+  @media only screen and (max-width: #{$mobile-width - 1}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width})  and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@function convert($value, $currentUnit, $convertUnit) {
+   @if $currentUnit == px{
+
+      @if $convertUnit == ems{
+        @return $value / 16 + 0em;
+      }
+      @else if $convertUnit == percent{
+        @return percentage($value / 16);
+      }
+
+   }@else if $currentUnit == ems{
+
+      @if $convertUnit == px{
+        @return $value * 16 + 0px;
+      }
+      @else if $convertUnit == percent{
+        @return percentage($value);
+      }
+
+   }@else if $currentUnit == percent{
+
+      @if $convertUnit == px{
+        @return $value * 16 / 100 + 0px;
+      }
+      @else if $convertUnit == ems{
+        @return $value / 100 + 0em;
+      }
+
+   }@else if $currentUnit == pts{
+
+      @if $convertUnit == px{
+        @return $value * 1.3333 +0px;
+      }
+      @else if $convertUnit == ems{
+        @return $value / 12 + 0em;
+      }
+      @else if $convertUnit == percent{
+        @return percentage($value / 12)
+      }
+
+   }
+}
+
+/* Utility classes. */
+.vertical-center, .navigation {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
+
+.horizontal-center, .whoami img.portrait {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.true-center, .loading-screen .cd-spinner, .container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%); }
+
+html, body {
+  max-width: 100%;
+  height: 100%;
+  background-color: #FFF; }
+body {
+  position: relative;
+}
+.loading-screen {
+  background: #222;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999; }
+  .loading-screen.loaded {
+    display: none; }
+  .loading-screen .cd-spinner {
+    width: 80px;
+    height: 80px; }
+    .loading-screen .cd-spinner img {
+      width: 100%;
+      height: 100%; }
+  .loading-screen .progress-bar {
+    position: absolute;
+    bottom: 25%;
+    left: 0;
+    width: 220px;
+    height: 15px;
+    background: #000; }
+
+.content {
+
+  min-height: 100%;
+  opacity: 0; }
+
+.landing {
+  overflow: auto;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: scroll; }
+
+.container {
+  display: table; }
+
+.whoami {
+  float: left;
+  padding: 1em;
+  text-align: right;
+  width: 250px;
+  box-sizing: border-box; }
+  .whoami .name {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-top: 0.5em;
+    padding-bottom: 0.25em;
+    margin-bottom: 0.5em;
+    border-bottom: 0.5px solid #CCC; }
+  .whoami .bio {
+    font-size: 14px;
+    font-family: "Raleway", sans-serif;
+    color: #666;
+    display: block;
+    font-weight: 400;
+    text-align: center;
+    width: 100%; }
+    .whoami .bio .location {
+      display: block;
+      margin-top: 0.97em;
+      margin-bottom: 1.33em;
+      cursor: pointer; }
+      .whoami .bio .location img {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        margin-bottom: -6px; }
+      .whoami .bio .location:hover {
+        font-weight: 900; }
+  .whoami .links {
+    margin-top: 0.4em;
+    margin-bottom: 0.1625rem; }
+    .whoami .links > li {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      font-family: "Space Mono", monospace;
+      letter-spacing: 1px;
+      border: 1px solid #DDD;
+      border-bottom: none;
+      padding: 8px;
+      /*; 0em;*/
+      cursor: pointer;
+      -moz-transition: all 0.2s ease;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
+      .whoami .links > li:last-child {
+        border-bottom: 1px solid #DDD; }
+      .whoami .links > li:hover {
+        background-color: #f7f7f7;
+        font-weight: bold;
+        font-size: 15px; }
+      .whoami .links > li > a {
+        text-decoration: none;
+        color: #222; }
+  .whoami img.portrait {
+    border: 2px solid #5CDAFF;
+    transition: all 0.5s ease;
+    box-sizing: border-box; }
+    .whoami img.portrait:hover {
+      border-width: 10px;
+      cursor: pointer;
+      border-color: #FF795C; }
+  .whoami:after {
+    display: block;
+    content: " ";
+    clear: both; }
+
+.navigation {
+  float: left;
+  transform: translateY(64.6%);
+  font-family: "Archivo Black", serif;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  height: 100%;
+  margin-left: 2em;
+  margin-top: -11px; }
+  .navigation ul {
+    display: block; }
+  .navigation ul > li a {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer; }
+  .navigation ul > li {
+    font-size: 2em;
+    margin-bottom: 1em;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    clear: left;
+    // padding-right: 0.1375em;
+  }
+  .navigation ul > li:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -14px;
+    height: 4px;
+    width: 0;
+    background: transparent;
+    transition: width .55s ease, background-color .55s ease; }
+  .navigation ul > li:hover:after {
+    width: 100%;
+    background: #FF795C; }
+
+@media only screen and (max-width: 768px) {
+  html, body {
+    min-width: 660px;
+  }
+  .navigation {
+    font-size: 17px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  html, body {
+    min-width: 100%;
+  }
+  .container {
+    top: 0;
+    left: 0;
+    transform: none;
+    min-width: 375px;
+  }
+  .landing {
+    position: relative;
+  }
+  .whoami {
+    float: none;
+    width: 100%;
+    padding-top: 2em;
+
+    .links {
+      margin-top: 35px;
+      > li {
+        margin: 0 2em;
+      }
+    }
+  }
+  .navigation {
+    font-size: 20px;
+    overflow: auto;
+    float: none;
+    margin: 0 auto;
+    transform: none;
+    padding: calc(1em - 100px);
+    margin-bottom: 3em;
+
+    ul {
+      margin-top: 30px;
+      overflow: auto;
+      margin-left: -3px;
+    }
+    ul > li {
+      margin: 20px 0;
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-right: 0;
+    }
+  }
+}
+
+.circle-crop {
+  border-radius: 50%;
+  display: block;
+  width: 180px; }
+
+.heading-container {
+  padding-bottom: 2em;
+  position: relative;
+  margin: 0 auto;
+  opacity: 0;
+  padding-bottom: 500px;
+
+  // &:first-of-type {
+  //   padding-bottom: 0px;
+  // }
+}
+
+.heading {
+  color: #FFF;
+  background-color: #FF795C;
+  padding: 2em 3em;
+  display: inline-block;
+  margin: 0 auto;
+  h1, h2, h3 {
+    text-transform: uppercase;
+    font-family: "Archivo Black", serif !important;
+    line-height: 0.88em;
+    margin-top: 0;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+  }
+  h1 {
+    padding-bottom: 7px;
+  }
+  h2 {
+    padding-bottom: 3px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .heading-container {
+    margin-right: 45px;
+  }
+  .heading {
+    padding: 1em 2em;
+    padding-right: 3em;
+    h1 {
+      font-size: 58pt;
+    }
+    h2 {
+      font-size: 29pt;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .heading-container {
+    margin-right: 15px;
+  }
+  .heading {
+    padding: 1em 1em;
+    padding-right: 1em;
+    h1:first-child {
+      font-size: 42pt;
+    }
+    h1.smaller {
+      font-size: 35pt;
+    }
+    h2 {
+      font-size: 25pt;
+    }
+  }
+}
+
+.depth-after, .depth-before {
+  position: relative;
+  height: 0;
+  border-top-color: desaturate(darken(#FF795C, 15%), 30%) !important;
+  border-bottom-color: lighten(#FF795C, 10%) !important;
+}
+
+#back {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 30px 30px;
+  /* line-height: 0; */
+  font-size: 40pt;
+  background: #FFF;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  opacity: 0;
+  margin: 30px;
+  transition: all 0.4s ease;
+  z-index: 5;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  i {
+    margin-top: -0.3em;
+    display: block;
+    margin-left: -0.12em;
+
+    &.ion-android-arrow-up {
+      margin-left: -2px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  #back {
+    width: 20px;
+    height: 20px;
+    font-size: 26.666pt;
+    padding: 20px;
+
+    i {
+      margin-top: -10px;
+      margin-left: -4px;
+    }
+  }
+}
+
+#info-container {
+  background: url("../images/brickwall.jpg");
+  background-repeat: repeat-y;
+  background-position: center;
+  opacity: 0;
+  padding-top: 0px;
+}
+
+html body#info {
+  min-width: 425px;
+}
